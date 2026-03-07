@@ -13,7 +13,7 @@ I am happy to review contributions! To ensure a smooth process and avoid wasted 
 
 ---
 
-### :running: Run Locally (For Contributors)
+### :running: Run The Debug Variant For Testing
 
 You do not need my private signing keys or API tokens to test it while contributing. To get a build running:
 
