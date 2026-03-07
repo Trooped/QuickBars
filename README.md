@@ -1,6 +1,8 @@
 <div align="center">
 
-  <img src="app/src/main/ic_icon-playstore.png" alt="logo" width="200" height="auto" />
+ <a href="https://github.com/Trooped/QuickBars">
+        <img src="assets/icon.svg" alt="QuickBars App Screenshot" width="300"/>
+  </a>
   <h1>QuickBars for Home Assistant</h1>
   
   <p>
@@ -51,7 +53,7 @@
   
 ## :star2: About the Project
 
-QuickBars was born out of a simple need: making smart home control accessible on the big screen. Originally developed to help my father interact with Home Assistant via larger, more readable controls, it has grown into a powerful tool used by over 16,000 users worldwide.
+QuickBars was born out of a simple need: making smart home control accessible on the big screen. Originally developed to help my father interact with Home Assistant via larger, more readable controls, it has grown into a powerful tool downloaded by over 16,000 users worldwide.
 
 It provides a fast, dynamic overlay that works over any app on your TV, ensuring your most-used Home Assistant actions are always just a click or two away.
 
