@@ -20,12 +20,20 @@ android {
     signingConfigs {
         create("release") {
             // Read properties for the keystore file location and passwords
-            val keystoreFile = project.file("ha_quickbars.jks")
-            if (keystoreFile.exists()) {
-                storeFile = keystoreFile
-                storePassword = System.getenv("HA_QUICKBARS_KEYSTORE_PASSWORD") ?: findProperty("HA_QUICKBARS_KEYSTORE_PASSWORD") as String?
-                keyAlias = System.getenv("HA_QUICKBARS_KEY_ALIAS") ?: findProperty("HA_QUICKBARS_KEY_ALIAS") as String?
-                keyPassword = System.getenv("HA_QUICKBARS_KEY_PASSWORD") ?: findProperty("HA_QUICKBARS_KEY_PASSWORD") as String?
+            val keystorePath = findProperty("HA_QUICKBARS_KEYSTORE_FILE") as String?
+
+            if (keystorePath != null) {
+                val keystoreFile = file(keystorePath)
+                if (keystoreFile.exists()) {
+                    storeFile = keystoreFile
+                    storePassword = System.getenv("HA_QUICKBARS_KEYSTORE_PASSWORD") ?: findProperty(
+                        "HA_QUICKBARS_KEYSTORE_PASSWORD"
+                    ) as String?
+                    keyAlias = System.getenv("HA_QUICKBARS_KEY_ALIAS")
+                        ?: findProperty("HA_QUICKBARS_KEY_ALIAS") as String?
+                    keyPassword = System.getenv("HA_QUICKBARS_KEY_PASSWORD")
+                        ?: findProperty("HA_QUICKBARS_KEY_PASSWORD") as String?
+                }
             }
         }
     }
