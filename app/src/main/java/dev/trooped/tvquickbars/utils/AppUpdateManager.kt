@@ -18,6 +18,7 @@ object AppUpdateManager {
         22 to "1.3",
         23 to "1.3.1",
         24 to "1.3.2",
+        25 to "1.3.3",
         // Add future versions here
     )
 
@@ -29,6 +30,17 @@ object AppUpdateManager {
     // Returns changes for a specific version
     fun getChangesForVersion(versionCode: Int): List<ChangeItem> {
         return when (versionCode) {
+
+            25 -> listOf(
+                ChangeItem(
+                    title = "QuickBars is now Open-Source!",
+                    description = "You can now find the official GitHub repository at https://github.com/Trooped/QuickBars. Feel free to explore the code or contribute to the project!"
+                ),
+                ChangeItem(
+                    title = "Home Assistant 2026.3 Compatibility",
+                    description = "Updated light entity controls to handle deprecated features introduced in HA 2026.3. QuickBars now uses kelvin-based values instead of mired-based values for better future-proofing."
+                )
+            )
 
             24 -> listOf(
                 ChangeItem(
