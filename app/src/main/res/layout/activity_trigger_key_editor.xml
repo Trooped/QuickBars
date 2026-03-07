@@ -1,0 +1,483 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.TriggerKeyEditorActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:titleTextColor="@color/md_theme_onSurface"
+            app:navigationIconTint="@color/md_theme_onSurface"
+            app:title="Edit Trigger Key"
+            app:titleCentered="true"
+            app:navigationIcon="@drawable/ic_arrow_back" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:fillViewport="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="60dp"
+            android:paddingVertical="16dp">
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="2dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="?attr/colorOutline">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="12dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Remote Button"
+                        android:textAppearance="?attr/textAppearanceTitleMedium"
+                        android:textColor="@color/md_theme_onSurface"
+                        android:layout_marginBottom="8dp"/>
+
+                    <TextView
+                        android:id="@+id/key_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?attr/textAppearanceBodyMedium"
+                        android:textColor="?attr/colorOnSurfaceVariant"
+                        android:layout_marginBottom="10dp"
+                        tools:text="Media Play" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Friendly Name">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edit_friendly_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:maxLines="1"
+                            android:imeOptions="actionDone"
+                            android:inputType="text"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/switch_key_enabled"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="36dp"
+                        android:layout_marginTop="10dp"
+                        android:text="Key Action Override Enabled"
+                        android:textAppearance="?attr/textAppearanceBodyMedium"
+                        android:textColor="@color/md_theme_onSurface"
+                        android:checked="true" />
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_single_press"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="2dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="?attr/colorOutline">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="12dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Single Press Action"
+                        android:textAppearance="?attr/textAppearanceTitleMedium"
+                        android:textColor="@color/md_theme_onSurface"
+                        android:layout_marginBottom="6dp"/>
+
+                    <!-- Replace spinner with toggle group -->
+                    <com.google.android.material.button.MaterialButtonToggleGroup
+                        android:id="@+id/toggle_single_press_type"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="6dp"
+                        android:background="?attr/colorSurfaceContainer"
+                        app:singleSelection="true"
+                        app:selectionRequired="true">
+
+                        <Button
+                            android:id="@+id/btn_single_none"
+                            style="?attr/materialButtonOutlinedStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:minHeight="40dp"
+                            android:layout_weight="1"
+                            android:textSize="12sp"
+                            android:text="None"/>
+
+                        <Button
+                            android:id="@+id/btn_single_quickbar"
+                            style="?attr/materialButtonOutlinedStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:minHeight="40dp"
+                            android:layout_weight="1"
+                            android:textSize="12sp"
+                            android:text="QuickBar"/>
+
+                        <Button
+                            android:id="@+id/btn_single_entity"
+                            style="?attr/materialButtonOutlinedStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:minHeight="40dp"
+                            android:layout_weight="1"
+                            android:textSize="12sp"
+                            android:text="Entity"/>
+
+                        <Button
+                            android:id="@+id/btn_single_camera_pip"
+                            style="?attr/materialButtonOutlinedStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:minHeight="40dp"
+                            android:layout_weight="1"
+                            android:textSize="12sp"
+                            android:text="Camera"/>
+
+                        <Button
+                            android:id="@+id/btn_single_app"
+                            style="?attr/materialButtonOutlinedStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:minHeight="40dp"
+                            android:layout_weight="1"
+                            android:textSize="12sp"
+                            android:text="App"/>
+                    </com.google.android.material.button.MaterialButtonToggleGroup>
+
+                    <!-- Keep the action spinner -->
+                    <Spinner
+                        android:id="@+id/spinner_single_press_action"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="6dp"
+                        android:visibility="gone"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:background="@drawable/spinner_focusable_background"
+                        android:paddingEnd="40dp"
+                        android:paddingStart="12dp"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"/>
+
+                    <Spinner
+                        android:id="@+id/spinner_single_press_camera"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="6dp"
+                        android:visibility="gone"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:background="@drawable/spinner_focusable_background"
+                        android:paddingEnd="40dp"
+                        android:paddingStart="12dp"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"/>
+
+                    <Spinner
+                        android:id="@+id/spinner_single_press_app"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="6dp"
+                        android:visibility="gone"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:background="@drawable/spinner_focusable_background"
+                        android:paddingEnd="40dp"
+                        android:paddingStart="12dp"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"/>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_double_press"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="2dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="?attr/colorOutline">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="12dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="6dp"
+                        android:text="Double Press Action"
+                        android:textColor="@color/md_theme_onSurface"
+                        android:textAppearance="?attr/textAppearanceTitleMedium" />
+
+                    <!-- Replace spinner with toggle group -->
+                    <com.google.android.material.button.MaterialButtonToggleGroup
+                        android:id="@+id/toggle_double_press_type"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="6dp"
+                        android:background="?attr/colorSurfaceContainer"
+                        app:singleSelection="true"
+                        app:selectionRequired="true">
+
+                        <Button
+                            android:id="@+id/btn_double_none"
+                            style="?attr/materialButtonOutlinedStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:minHeight="40dp"
+                            android:layout_weight="1"
+                            android:textSize="12sp"
+                            android:text="None"/>
+
+                        <Button
+                            android:id="@+id/btn_double_quickbar"
+                            style="?attr/materialButtonOutlinedStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:minHeight="40dp"
+                            android:layout_weight="1"
+                            android:textSize="12sp"
+                            android:text="QuickBar"/>
+
+                        <Button
+                            android:id="@+id/btn_double_entity"
+                            style="?attr/materialButtonOutlinedStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:minHeight="40dp"
+                            android:layout_weight="1"
+                            android:textSize="12sp"
+                            android:text="Entity"/>
+
+                        <Button
+                            android:id="@+id/btn_double_camera_pip"
+                            style="?attr/materialButtonOutlinedStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:minHeight="40dp"
+                            android:layout_weight="1"
+                            android:textSize="12sp"
+                            android:text="Camera"/>
+                    </com.google.android.material.button.MaterialButtonToggleGroup>
+
+                    <!-- Keep the action spinner -->
+                    <Spinner
+                        android:id="@+id/spinner_double_press_action"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="6dp"
+                        android:visibility="gone"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:background="@drawable/spinner_focusable_background"
+                        android:paddingEnd="40dp"
+                        android:paddingStart="12dp"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"/>
+
+                    <Spinner
+                        android:id="@+id/spinner_double_press_camera"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="6dp"
+                        android:visibility="gone"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:background="@drawable/spinner_focusable_background"
+                        android:paddingEnd="40dp"
+                        android:paddingStart="12dp"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"/>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_long_press"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="2dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="?attr/colorOutline">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="12dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Long Press Action"
+                        android:textAppearance="?attr/textAppearanceTitleMedium"
+                        android:textColor="@color/md_theme_onSurface"
+                        android:layout_marginBottom="6dp"/>
+
+                    <!-- Replace spinner with toggle group -->
+                    <com.google.android.material.button.MaterialButtonToggleGroup
+                        android:id="@+id/toggle_long_press_type"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="6dp"
+                        android:background="?attr/colorSurfaceContainer"
+                        app:singleSelection="true"
+                        app:selectionRequired="true">
+
+                        <Button
+                            android:id="@+id/btn_long_none"
+                            style="?attr/materialButtonOutlinedStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:minHeight="40dp"
+                            android:layout_weight="1"
+                            android:textSize="12sp"
+                            android:text="None"/>
+
+                        <Button
+                            android:id="@+id/btn_long_quickbar"
+                            style="?attr/materialButtonOutlinedStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:minHeight="40dp"
+                            android:layout_weight="1"
+                            android:textSize="12sp"
+                            android:text="QuickBar"/>
+
+                        <Button
+                            android:id="@+id/btn_long_entity"
+                            style="?attr/materialButtonOutlinedStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:minHeight="40dp"
+                            android:layout_weight="1"
+                            android:textSize="12sp"
+                            android:text="Entity"/>
+
+                        <Button
+                            android:id="@+id/btn_long_camera_pip"
+                            style="?attr/materialButtonOutlinedStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:minHeight="40dp"
+                            android:layout_weight="1"
+                            android:textSize="12sp"
+                            android:text="Camera"/>
+                    </com.google.android.material.button.MaterialButtonToggleGroup>
+
+                    <!-- Keep the action spinner -->
+                    <Spinner
+                        android:id="@+id/spinner_long_press_action"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="6dp"
+                        android:visibility="gone"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:background="@drawable/spinner_focusable_background"
+                        android:paddingEnd="40dp"
+                        android:paddingStart="12dp"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"/>
+
+                    <Spinner
+                        android:id="@+id/spinner_long_press_camera"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="6dp"
+                        android:visibility="gone"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:background="@drawable/spinner_focusable_background"
+                        android:paddingEnd="40dp"
+                        android:paddingStart="12dp"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"/>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Spacer to push buttons to bottom -->
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:minHeight="4dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="6dp">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_save"
+                    style="@style/Widget.HAQuickBars.Button.Primary"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:minHeight="48dp"
+                    android:layout_weight="1"
+                    android:text="Save"
+                    android:layout_marginEnd="6dp"
+                    android:layout_marginStart="4dp"
+                    android:focusable="true"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_delete"
+                    style="@style/Widget.HAQuickBars.Button.Primary"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:minHeight="48dp"
+                    android:layout_weight="1"
+                    android:text="Delete"
+                    android:layout_marginStart="6dp"
+                    android:layout_marginEnd="4dp"
+                    app:backgroundTint="?attr/colorErrorContainer"
+                    android:textColor="?attr/colorOnErrorContainer"
+                    android:focusable="true"/>
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

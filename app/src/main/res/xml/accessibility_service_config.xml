@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<accessibility-service xmlns:android="http://schemas.android.com/apk/res/android"
+    android:description="@string/accessibility_service_description"
+    android:summary="Allows the app to intercept hardware key presses to launch the QuickBar or control Home Assistant entities."
+    android:canRequestFilterKeyEvents="true"
+    android:accessibilityFlags="flagRequestFilterKeyEvents"
+    android:isAccessibilityTool="false"
+    android:accessibilityEventTypes="typeWindowStateChanged"
+    android:settingsActivity="dev.trooped.tvquickbars.ui.SetupActivity"
+    />

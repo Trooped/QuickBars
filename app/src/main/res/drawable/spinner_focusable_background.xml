@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:state_focused="true">
+        <layer-list>
+            <item android:drawable="@drawable/spinner_background_shape_focused" />
+            <item
+                android:drawable="@drawable/ic_arrow_drop_down"
+                android:gravity="end|center_vertical"
+                android:width="24dp"
+                android:height="24dp"
+                android:end="12dp"/>
+        </layer-list>
+    </item>
+
+    <item>
+        <layer-list>
+            <item android:drawable="@drawable/spinner_background_shape" />
+            <item
+                android:drawable="@drawable/ic_arrow_drop_down"
+                android:gravity="end|center_vertical"
+                android:width="24dp"
+                android:height="24dp"
+                android:end="12dp"/>
+        </layer-list>
+    </item>
+
+</selector>

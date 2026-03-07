@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Focused: white ring -->
+    <item android:state_focused="true">
+        <layer-list>
+            <!-- We use a 4dp stroke, so inset by 2dp on all sides (stroke/2) -->
+            <item
+                android:insetLeft="1.5dp"
+                android:insetTop="1.5dp"
+                android:insetRight="1.5dp"
+                android:insetBottom="1.5dp">
+                <shape android:shape="rectangle">
+                    <solid android:color="@android:color/transparent"/>
+                    <stroke android:width="3dp"
+                        android:color="@color/md_theme_onSurface_mediumContrast"/>
+                    <!-- 16dp button radius - 1.5dp inset = 14.5dp -->
+                    <corners android:radius="14.5dp"/>
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+
+    <!-- Default: nothing -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@android:color/transparent"/>
+        </shape>
+    </item>
+</selector>

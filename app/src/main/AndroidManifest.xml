@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="com.android.vending.BILLING" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+
+    <!-- Foreground Service baseline + Android 14+ FGS type -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
+
+    <!-- So we can auto-start after reboot if the user enables the toggle -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="28" />
+
+    <uses-feature
+        android:name="android.hardware.touchscreen"
+        android:required="false" />
+    <uses-feature
+        android:name="android.software.leanback"
+        android:required="true" />
+
+    <application
+        android:name=".QuickBarsApp"
+        android:allowBackup="true"
+        android:banner="@mipmap/ic_banner"
+        android:icon="@mipmap/ic_icon"
+        android:label="@string/app_name_short"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.HAQuickBars"
+        android:usesCleartextTraffic="true"
+        tools:targetApi="35"
+        android:dataExtractionRules="@xml/data_extraction_rules">
+        <activity
+            android:name="dev.trooped.tvquickbars.ui.SplashActivity"
+            android:exported="true"
+            android:theme="@style/Theme.HAQuickBars.TvSplash">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="dev.trooped.tvquickbars.ui.SetupActivity"
+            android:exported="false"
+            android:theme="@style/Theme.HAQuickBars">
+        </activity>
+        <activity
+            android:name=".ui.UpgradeActivity"
+            android:exported="false"
+            android:theme="@style/Theme.HAQuickBars" />
+        <activity
+            android:name="dev.trooped.tvquickbars.ui.ComposeMainActivity"
+            android:exported="true"/>
+        <activity
+            android:name=".ui.OnboardingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.DialogActivity"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name="dev.trooped.tvquickbars.ui.IconSelectionActivity"
+            android:exported="false"
+            android:theme="@style/Theme.HAQuickBars" />
+        <activity
+            android:name="dev.trooped.tvquickbars.ui.BackupActivity"
+            android:exported="false"
+            android:theme="@style/Theme.HAQuickBars" />
+        <activity
+            android:name="dev.trooped.tvquickbars.ui.QuickBarEntitySelectorActivity"
+            android:exported="false" />
+        <activity
+            android:name="dev.trooped.tvquickbars.ui.ManageEntityActivity"
+            android:exported="false"
+            android:theme="@style/Theme.HAQuickBars"
+            android:windowSoftInputMode="adjustPan"/>
+        <activity
+            android:name="dev.trooped.tvquickbars.ui.ReorderEntitiesActivity"
+            android:exported="false" />
+        <activity
+            android:name="dev.trooped.tvquickbars.ui.QuickBarEditorActivity"
+            android:exported="false"
+            android:label="@string/edit_quickbar"/>
+        <activity
+            android:name="dev.trooped.tvquickbars.ui.QuickBarStyleActivity"
+            android:exported="false"
+            android:label="QuickBar Styling activity"/>
+        <activity
+            android:name="dev.trooped.tvquickbars.ui.TriggerKeyEditorActivity"
+            android:exported="false"
+            android:label="Trigger Key Editor"/>
+        <activity
+            android:name="dev.trooped.tvquickbars.ui.ManageSavedEntitiesActivity"
+            android:exported="false"
+            android:label="Manage Saved Entities" />
+        <activity android:name="dev.trooped.tvquickbars.ui.EntityImporterActivity" />
+        <service
+            android:name="dev.trooped.tvquickbars.services.QuickBarService"
+            android:exported="false"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService" />
+            </intent-filter>
+            <meta-data
+                android:name="android.accessibilityservice"
+                android:resource="@xml/accessibility_service_config" />
+        </service>
+
+
+        <!-- Always-on HA connection (small, persistent foreground notification) -->
+        <service
+            android:name=".services.HAConnectionService"
+            android:exported="false"
+            android:foregroundServiceType="dataSync" />
+
+        <!-- Start service at boot if the setting is enabled -->
+        <receiver
+            android:name=".receivers.BootCompletedReceiver"
+            android:enabled="false"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+    </application>
+
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
+        </intent>
+    </queries>
+
+</manifest>

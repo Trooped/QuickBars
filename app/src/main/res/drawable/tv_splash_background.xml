@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Background color -->
+    <item android:drawable="@color/md_theme_onSurface_highContrast"/>
+
+    <!-- Centered logo -->
+    <item android:gravity="center"
+        android:drawable="@drawable/icon_svg"/>
+</layer-list>

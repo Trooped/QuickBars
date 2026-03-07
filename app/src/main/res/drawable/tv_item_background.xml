@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- When in move mode (activated state) -->
+    <item android:state_activated="true">
+        <shape android:shape="rectangle">
+            <solid android:color="#885E35B1" />
+            <stroke android:color="#FFFFFF" android:width="2dp" />
+            <corners android:radius="4dp" />
+        </shape>
+    </item>
+
+    <!-- When focused -->
+    <item android:state_focused="true">
+        <shape android:shape="rectangle">
+            <solid android:color="#33FFFFFF" />
+            <stroke android:color="#AAAAAA" android:width="2dp" />
+            <corners android:radius="4dp" />
+        </shape>
+    </item>
+
+    <!-- Default state -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@android:color/transparent" />
+            <corners android:radius="4dp" />
+        </shape>
+    </item>
+</selector>

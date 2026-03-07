@@ -1,0 +1,571 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.QuickBarEditorActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:titleTextColor="@color/md_theme_onSurface"
+            app:navigationIconTint="@color/md_theme_onSurface"
+            app:title="QuickBar"
+            app:titleCentered="true"
+            app:navigationIcon="@drawable/ic_arrow_back" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:clipToPadding="false"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="60dp"
+            android:paddingVertical="10dp">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/name_input_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="6dp"
+                app:errorEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_quickbar_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:hint="@string/quickbar_name"
+                    android:imeOptions="actionDone"
+                    android:inputType="text"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/trigger_setup_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="2dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="?attr/colorOutline">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="12dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/trigger"
+                        android:textColor="@color/md_theme_onSurface"
+                        android:textAppearance="?attr/textAppearanceTitleMedium"
+                        android:layout_marginBottom="8dp"/>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_set_trigger"
+                        style="@style/Widget.HAQuickBars.Button.Primary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="42dp"
+                        android:layout_marginBottom="10dp"
+                        android:text="@string/quickbar_editor_button_set_trigger"
+                        android:focusable="true"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/quickbar_editor_label_activation_method"
+                        android:textColor="@color/md_theme_onSurface"
+                        android:textAppearance="?attr/textAppearanceLabelMedium"
+                        android:layout_marginBottom="6dp"/>
+
+                    <com.google.android.material.button.MaterialButtonToggleGroup
+                        android:id="@+id/toggle_trigger_type"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="6dp"
+                        android:background="?attr/colorSurfaceContainer"
+                        app:singleSelection="true"
+                        app:selectionRequired="true">
+
+                        <Button
+                            android:id="@+id/btn_single_press"
+                            style="?attr/materialButtonOutlinedStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:minHeight="40dp"
+                            android:layout_weight="1"
+                            android:textSize="12sp"
+                            android:text="Single Press"/>
+
+                        <Button
+                            android:id="@+id/btn_double_press"
+                            style="?attr/materialButtonOutlinedStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:minHeight="40dp"
+                            android:layout_weight="1"
+                            android:textSize="12sp"
+                            android:text="Double Press"/>
+
+                        <Button
+                            android:id="@+id/btn_long_press"
+                            style="?attr/materialButtonOutlinedStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:minHeight="40dp"
+                            android:layout_weight="1"
+                            android:textSize="12sp"
+                            android:text="Long Press"/>
+                    </com.google.android.material.button.MaterialButtonToggleGroup>
+
+                    <TextView
+                        android:id="@+id/trigger_error_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@android:color/holo_red_light"
+                        android:visibility="gone"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginBottom="4dp" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/trigger_info_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="2dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="?attr/colorOutline">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="12dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/trigger"
+                        android:textColor="@color/md_theme_onSurface"
+                        android:textAppearance="?attr/textAppearanceTitleMedium"
+                        android:layout_marginBottom="8dp"/>
+
+                    <!-- Container for trigger chips -->
+                    <HorizontalScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="6dp"
+                        android:scrollbars="none"
+                        android:fillViewport="true">
+
+                        <LinearLayout
+                            android:id="@+id/trigger_chips_container"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:paddingStart="4dp"
+                            android:paddingEnd="4dp">
+                            <!-- Chips will be added here programmatically -->
+                        </LinearLayout>
+                    </HorizontalScrollView>
+
+                    <!-- Message when no triggers exist -->
+                    <TextView
+                        android:id="@+id/tv_no_triggers_message"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="This QuickBar doesn't have any triggers assigned."
+                        android:textColor="@color/md_theme_onSurface"
+                        android:textAppearance="?attr/textAppearanceBodyMedium"
+                        android:visibility="gone"/>
+
+                    <!-- Help text below triggers -->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="To change these triggers or add additional ones, please go to the Trigger Keys section in the main menu."
+                        android:textAppearance="?attr/textAppearanceBodySmall"
+                        android:textColor="@color/md_theme_onSurfaceVariant"
+                        android:layout_marginTop="8dp"/>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="2dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="?attr/colorOutline">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="12dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/entities"
+                        android:textColor="@color/md_theme_onSurface"
+                        android:textAppearance="?attr/textAppearanceTitleMedium"
+                        android:layout_marginBottom="8dp"/>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_select_entities"
+                        style="@style/Widget.HAQuickBars.Button.Primary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="42dp"
+                        android:text="@string/select_entities"
+                        android:layout_marginBottom="6dp"
+                        android:focusable="true"/>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_reorder_entities"
+                        style="@style/Widget.HAQuickBars.Button.Primary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="42dp"
+                        android:text="@string/reorder_selected_entities"
+                        android:enabled="false"
+                        android:focusable="true"/>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="2dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="?attr/colorOutline">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="12dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/quickbar_editor_section_style"
+                        android:textColor="@color/md_theme_onSurface"
+                        android:textAppearance="?attr/textAppearanceTitleMedium"
+                        android:layout_marginBottom="8dp"/>
+
+                    <!-- Button to edit theme -->
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_edit_style"
+                        style="@style/Widget.HAQuickBars.Button.Primary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="42dp"
+                        android:text="@string/edit_quickbar_theme"
+                        android:layout_marginBottom="10dp"
+                        android:focusable="true"/>
+
+                    <!-- Screen Position section -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/screen_position_quickbar"
+                        android:textColor="@color/md_theme_onSurface"
+                        android:textAppearance="?attr/textAppearanceLabelMedium"
+                        android:layout_marginBottom="6dp"/>
+
+                    <com.google.android.material.button.MaterialButtonToggleGroup
+                        android:id="@+id/toggle_position"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:background="?attr/colorSurfaceContainer"
+                        app:singleSelection="true"
+                        app:selectionRequired="true">
+
+                        <Button
+                            android:id="@+id/btn_position_left"
+                            style="?attr/materialButtonOutlinedStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:minHeight="40dp"
+                            android:layout_weight="1"
+                            android:textSize="12sp"
+                            android:text="@string/left"/>
+
+                        <Button
+                            android:id="@+id/btn_position_bottom"
+                            style="?attr/materialButtonOutlinedStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:minHeight="40dp"
+                            android:layout_weight="1"
+                            android:textSize="12sp"
+                            android:text="@string/bottom"/>
+
+                        <Button
+                            android:id="@+id/btn_position_top"
+                            style="?attr/materialButtonOutlinedStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:minHeight="40dp"
+                            android:layout_weight="1"
+                            android:textSize="12sp"
+                            android:text="@string/top"/>
+
+                        <Button
+                            android:id="@+id/btn_position_right"
+                            style="?attr/materialButtonOutlinedStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:minHeight="40dp"
+                            android:layout_weight="1"
+                            android:textSize="12sp"
+                            android:text="@string/right"/>
+                    </com.google.android.material.button.MaterialButtonToggleGroup>
+
+                    <TextView
+                        android:id="@+id/tv_grid_layout_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/quickbar_editor_grid"
+                        android:textAppearance="?attr/textAppearanceLabelMedium"
+                        android:textColor="@color/md_theme_onSurface"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="6dp"
+                        android:visibility="gone"/>
+
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/switch_grid_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="36dp"
+                        android:text="@string/button_quickbar_grid_"
+                        android:textColor="@color/md_theme_onSurface"
+                        android:textAppearance="?attr/textAppearanceBodyMedium"
+                        android:layout_marginBottom="6dp"
+                        android:visibility="gone"/>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="2dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="?attr/colorOutline">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="12dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/options"
+                        android:textColor="@color/md_theme_onSurface"
+                        android:textAppearance="?attr/textAppearanceTitleMedium"
+                        android:layout_marginBottom="8dp"/>
+
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/switch_enabled"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="36dp"
+                        android:text="@string/enabled"
+                        android:textColor="@color/md_theme_onSurface"
+                        android:textAppearance="?attr/textAppearanceBodyMedium"
+                        android:layout_marginBottom="6dp"/>
+
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/switch_show_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="36dp"
+                        android:text="@string/show_quickbar_name_in_quickbar"
+                        android:textColor="@color/md_theme_onSurface"
+                        android:textAppearance="?attr/textAppearanceBodyMedium"/>
+
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/switch_show_time"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="36dp"
+                        android:text="@string/show_time_on_quickbar"
+                        android:textColor="@color/md_theme_onSurface"
+                        android:textAppearance="?attr/textAppearanceBodyMedium"
+                        android:layout_marginTop="4dp"/>
+
+                    <!-- Auto-close section header -->
+                    <TextView
+                        android:id="@+id/tv_auto_close_header"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginBottom="2dp"
+                        android:text="Auto-close QuickBar"
+                        android:textColor="@color/md_theme_onSurface"
+                        android:textAppearance="?attr/textAppearanceBodyMedium"/>
+
+                    <TextView
+                        android:id="@+id/tv_auto_close_subtitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="6dp"
+                        android:text="Choose how long before this QuickBar closes automatically after it's triggered."
+                        android:textColor="?attr/colorOnSurfaceVariant"
+                        android:textAppearance="?attr/textAppearanceBodySmall"/>
+
+                    <com.google.android.material.button.MaterialButtonToggleGroup
+                        android:id="@+id/toggle_auto_close_delay"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="?attr/colorSurfaceContainer"
+                        app:singleSelection="true"
+                        app:selectionRequired="true">
+
+                        <Button
+                            android:id="@+id/btn_auto_close_never"
+                            style="?attr/materialButtonOutlinedStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:minHeight="40dp"
+                            android:layout_weight="1"
+                            android:textSize="12sp"
+                            android:text="Never" />
+
+                        <Button
+                            android:id="@+id/btn_auto_close_15s"
+                            style="?attr/materialButtonOutlinedStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:minHeight="40dp"
+                            android:layout_weight="1"
+                            android:textSize="12sp"
+                            android:text="15s" />
+
+                        <Button
+                            android:id="@+id/btn_auto_close_30s"
+                            style="?attr/materialButtonOutlinedStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:minHeight="40dp"
+                            android:layout_weight="1"
+                            android:textSize="12sp"
+                            android:text="30s" />
+
+                        <Button
+                            android:id="@+id/btn_auto_close_60s"
+                            style="?attr/materialButtonOutlinedStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:minHeight="40dp"
+                            android:layout_weight="1"
+                            android:textSize="12sp"
+                            android:text="60s" />
+                    </com.google.android.material.button.MaterialButtonToggleGroup>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_auto_close_domains"
+                        style="@style/Widget.HAQuickBars.Button.Primary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="42dp"
+                        android:text="Select Entity Domains for Auto-Close"
+                        android:layout_marginTop="10dp"
+                        app:iconGravity="textStart"
+                        android:focusable="true"/>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/ha_trigger_input_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:hint="Trigger QuickBar from Home Assistant with a custom Event"
+                        app:helperTextTextAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                        app:helperText="Optional: Trigger this QuickBar from Home Assistant with quickbars.open event">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_ha_trigger_alias"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:maxLines="1"
+                            android:imeOptions="actionDone"
+                            android:inputType="text"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Flexible space -->
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:minHeight="12dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_save_quickbar"
+                    style="@style/Widget.HAQuickBars.Button.Primary"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:minHeight="48dp"
+                    android:layout_weight="1"
+                    android:text="@string/common_action_save"
+                    android:layout_marginEnd="6dp"
+                    android:layout_marginStart="8dp"
+                    android:focusable="true"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_delete_quickbar"
+                    style="@style/Widget.HAQuickBars.Button.Primary"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:minHeight="48dp"
+                    android:layout_weight="1"
+                    android:text="@string/common_action_delete"
+                    app:backgroundTint="?attr/colorErrorContainer"
+                    android:textColor="?attr/colorOnErrorContainer"
+                    android:layout_marginStart="6dp"
+                    android:layout_marginEnd="8dp"
+                    android:focusable="true"/>
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

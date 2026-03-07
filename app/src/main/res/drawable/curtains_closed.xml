@@ -1,0 +1,1 @@
+<!-- drawable/curtains_closed.xml --><vector xmlns:android="http://schemas.android.com/apk/res/android" android:height="24dp" android:width="24dp" android:viewportWidth="24" android:viewportHeight="24"><path android:fillColor="#000000" android:pathData="M23 3H1V1H23V3M2 22H11V4H2V22M22 4H13V22H22V4Z" /></vector>

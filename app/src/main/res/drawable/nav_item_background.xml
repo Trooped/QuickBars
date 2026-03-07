@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- State: Item is SELECTED and also PRESSED. This is the most specific state. -->
+    <!-- It keeps the selected color but adds the border for a "pop" effect. -->
+    <item android:state_activated="true" android:state_pressed="true">
+        <shape android:shape="rectangle">
+            <corners android:radius="8dp" />
+            <solid android:color="@color/md_theme_secondaryContainer" />
+            <stroke android:width="2dp" android:color="@color/md_theme_outline" />
+        </shape>
+    </item>
+
+    <!-- State: Item is SELECTED and also FOCUSED (hovered). -->
+    <item android:state_activated="true" android:state_focused="true">
+        <shape android:shape="rectangle">
+            <corners android:radius="8dp" />
+            <solid android:color="@color/md_theme_secondaryContainer" />
+            <stroke android:width="2dp" android:color="@color/md_theme_outline" />
+        </shape>
+    </item>
+
+    <!-- State: Item is just being pressed (but is NOT selected). -->
+    <item android:state_pressed="true">
+        <shape android:shape="rectangle">
+            <corners android:radius="8dp" />
+            <solid android:color="@color/md_theme_surfaceContainer_highContrast"/>
+            <stroke android:width="2dp" android:color="@color/md_theme_outline" />
+        </shape>
+    </item>
+
+    <!-- State: Item is just being focused (hovered, but is NOT selected). -->
+    <item android:state_focused="true">
+        <shape android:shape="rectangle">
+            <corners android:radius="8dp" />
+            <solid android:color="@color/md_theme_surfaceContainer_highContrast" />
+            <stroke android:width="2dp" android:color="@color/md_theme_outline" />
+        </shape>
+    </item>
+
+    <!-- State: Item is selected (activated), but NOT being pressed or hovered. -->
+    <item android:state_activated="true">
+        <shape android:shape="rectangle">
+            <corners android:radius="8dp" />
+            <solid android:color="@color/md_theme_secondaryContainer" />
+        </shape>
+    </item>
+
+    <!-- Default state: Not selected, not pressed, not focused. -->
+    <item android:drawable="@android:color/transparent" />
+
+</selector>

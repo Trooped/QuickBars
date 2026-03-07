@@ -1,0 +1,34 @@
+# IDE & System
+.idea/
+.vscode/
+*.iml
+.DS_Store
+*.swp
+*.log
+hs_err_pid*.log
+
+# Build & Output
+/build/
+/app/build
+bin/
+gen/
+out/
+.gradle/
+.externalNativeBuild/
+.cxx/
+/captures/
+/app/ha_quickbars
+
+# Android Specific
+local.properties
+/app/release/
+/app/ha_quickbars/
+
+# Secrets & Credentials
+*.jks
+*.keystore
+*.p12
+google-services.json
+secrets.xml
+.env
+
