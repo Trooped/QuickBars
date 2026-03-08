@@ -38,7 +38,7 @@ HA_QUICKBARS_KEY_PASSWORD="dummy"
 In Android Studio, ensure you are using the debug build variant. This variant uses the standard Android debug key and ignores the production signing configuration.
 
 ## :art: Code Style
-To keep the codebase clean and readable, please ensure your code follows standard Android Kotlin styling conventions. Before submitting a PR, run the standard Android Studio auto-formatter (Ctrl+Alt+L on Windows, Cmd+Option+L on Mac) on any files you have modified.
+To keep the codebase clean and readable, please ensure your code follows standard [Android Kotlin styling conventions](https://developer.android.com/kotlin/style-guide). Before submitting a PR, run the standard Android Studio auto-formatter (Ctrl+Alt+L on Windows, Cmd+Option+L on Mac) on any files you have modified.
 
 ## :test_tube: Testing & Quality Assurance
 Because QuickBars interacts with system-level overlays and physical remote key interception, testing is currently a manual process.
