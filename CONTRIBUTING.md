@@ -12,7 +12,7 @@ To ensure that changes align with the project's goals and architecture, please f
 
 1.  **Open an Issue**: Before writing any code, [open a new issue](https://github.com/Trooped/QuickBars/issues/new) to describe the bug or feature.
 2.  **Discussion**: Wait for other people to chime in and discuss the issue, and then for me to approve that we should start working on it. This ensures the change aligns with the project goals and architecture.
-3.  **Fork & Branch**: Once the issue is approved, fork the repository and create a descriptive feature branch (e.g., `feature/new-entity-support` or `fix/overlay-flicker`).
+3.  **Fork & Branch**: Once the issue is approved, fork the repository. Create a new descriptive feature branch from the main branch (e.g., `feature/new-entity-support` or `fix/overlay-flicker`).
 4.  **Local Development**: Set up your environment (see [Local Setup](#toolbox-local-setup) below).
 5.  **Manual Testing**: Verify your changes on a real device or emulator (see [Testing](#test_tube-testing--quality-assurance) below).
 6.  **Submit a Pull Request**: Submit your PR referencing the original issue.
