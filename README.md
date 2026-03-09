@@ -21,6 +21,7 @@
   
   
 <p>
+  <img src="https://img.shields.io/badge/Downloads-16k%2B-blue?style=flat&logo=googleplay&logoColor=white" alt="Play Store Downloads" />
   <a href="https://github.com/Trooped/QuickBars/graphs/contributors">
     <img src="https://img.shields.io/github/contributors/Trooped/QuickBars" alt="contributors" />
   </a>
@@ -59,6 +60,7 @@
 - [Contributing](#wave-contributing)
 - [License](#warning-license)
 - [Contact](#handshake-contact)
+- [Community & Support](#speech_balloon-community--support)
 
 ## :bookmark: Current Version
 
@@ -88,6 +90,18 @@ For a full feature breakdown and user guides, visit the [Official Website](https
 
 Please visit [Contributing](CONTRIBUTING.md) for instructions on how to contribute to the project.
 
+## :speech_balloon: Community & Support
+Have a question, a feature idea, or need help? Please use our Discussions page!
+
+> **Rule of Thumb:** For 🐛 **Bugs**, please [open an issue](https://github.com/Trooped/QuickBars/issues). For ✨ **Features** or 🙋 **Questions**, head to [Discussions](https://github.com/Trooped/QuickBars/discussions).
+
+1. Search First: Check if your question or idea has already been discussed.
+2. Pick a Category:
+   - Q&A: For "How do I..." questions or troubleshooting.
+   - Ideas: For suggesting new features or improvements.
+   - General: For everything else.
+3. Join In: Upvote ideas you like to help us prioritize what to build next!
+
 ## :warning: License
 
 Distributed under the GNU General Public License v3.0 (GPLv3). See `LICENSE` for more information.
@@ -98,3 +112,6 @@ Distributed under the GNU General Public License v3.0 (GPLv3). See `LICENSE` for
 Omri Peretz - [Official Website](https://omriperetz.dev)
 
 Project Link: [https://github.com/Trooped/QuickBars](https://github.com/Trooped/QuickBars)
+
+* **Found a Bug?** Please [open an issue](https://github.com/Trooped/QuickBars/issues).
+* **Have an Idea?** Start a [Discussion](https://github.com/Trooped/QuickBars/discussions/categories/ideas).
