@@ -1,8 +1,8 @@
 blank_issues_enabled: false
 contact_links:
-  - name: 💡 Feature Requests & Ideas
-    url: https://github.com/Trooped/QuickBars/discussions/categories/ideas
-    about: Please share your ideas and feature requests in our community discussions!
+  - name: 💡 Suggest a Feature
+    url: https://github.com/Trooped/QuickBars/discussions/new?category=ideas
+    about: "All feature requests MUST start as a discussion first. Click here to pitch your idea!"
   - name: 🙋 Questions & Support
     url: https://github.com/Trooped/QuickBars/discussions/categories/q-a
     about: Need help or have a question? Ask the community here.
