@@ -1,0 +1,75 @@
+name: 💡 Feature Request
+description: Pitch a new idea or improvement for QuickBars.
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ### Welcome! 🚀
+        Thanks for helping make **QuickBars** better. I prioritize features that are functional, and will benefit most users"
+  - type: input
+    id: feature-title
+    attributes:
+      label: "Short Feature Title"
+      description: "A punchy name for this idea."
+      placeholder: "e.g., Dynamic Button Colors based on State"
+    validations:
+      required: true
+  - type: dropdown
+    id: impact-area
+    attributes:
+      label: "What area does this affect?"
+      description: "You may select more than one if applicable."
+      multiple: true
+      options:
+        - User Interface (UI/UX)
+        - QuickBar Overlay
+        - Remote Control (Accessibility / Navigation etc.)
+        - Home Assistant Integration (WebSocket)
+        - Notifications
+        - Cameras
+        - Performance & Memory
+        - Code Quality
+        - QuickBars Repository (readme, contributing, templates etc.)
+        - QuickBars Website (if you believe something should be changed/added)
+    validations:
+      required: true
+  - type: textarea
+    id: problem-description
+    attributes:
+      label: "The Problem"
+      description: "What is currently frustrating or missing?"
+      placeholder: "When I am doing X, I find it hard to do Y..."
+    validations:
+      required: true
+  - type: textarea
+    id: proposed-solution
+    attributes:
+      label: "The Proposed Solution"
+      description: "How should it work on Android TV?"
+      value: |
+        1. User does X...
+        2. The app shows Y...
+        3. Result is Z...
+    validations:
+      required: true
+  - type: textarea
+    id: ha-config
+    attributes:
+      label: "Home Assistant Context (Optional)"
+      description: "If this involves specific YAML config, please share it."
+      render: yaml
+      placeholder: |
+        light:
+          - platform: ...
+  - type: checkboxes
+    id: validation-checklist
+    attributes:
+      label: "Readiness Check"
+      options:
+        - label: "I have confirmed this isn't already a feature/setting in the app by also searching [the guide](https://quickbars.app/guide)."
+          required: true
+        - label: "I understand that this is an open-source project managed alongside a full-time job and B.Sc. studies by Omri, and PRs and Issues may take some time."
+          required: true
+        - label: "I am willing to help provide more information upon request, and test beta builds of this feature."
