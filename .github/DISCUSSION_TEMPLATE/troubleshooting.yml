@@ -1,0 +1,69 @@
+name: 🛠️ Troubleshooting & Support
+description: Report an issue or get help with your QuickBars configuration.
+title: "[Help]: "
+labels: ["question", "help wanted"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ### Troubleshooting Guide 🔍
+        Before posting, please ensure you are on the latest version of the app and Home Assistant, and that you went through the [troubleshooting section](https://quickbars.app/troubleshooting) on the QuickBars website, and through the [Q&A discussions](https://github.com/Trooped/QuickBars/discussions/categories/q-a) to see if someone asked your question.
+  - type: input
+    id: hardware-device
+    attributes:
+      label: "Android TV Hardware"
+      description: "Which Android TV device are you running QuickBars on (maker and model)?"
+      placeholder: "Nvidia Shield TV Pro 2019"
+    validations:
+      required: true
+  - type: input
+    id: app-version
+    attributes:
+      label: "QuickBars Version"
+      description: "Check the version in the Play Store or App Settings."
+      placeholder: "e.g., v1.3.2"
+    validations:
+      required: true
+  - type: input
+    id: ha-version
+    attributes:
+      label: "Home Assistant Core Version"
+      placeholder: "e.g., 2024.2.1"
+    validations:
+      required: true
+  - type: textarea
+    id: issue-description
+    attributes:
+      label: "What is happening?"
+      description: "Describe the behavior you are seeing versus what you expected."
+      placeholder: "e.g., The overlay appears, but the 'Light Toggle' doesn't respond to remote clicks."
+    validations:
+      required: true
+  - type: textarea
+    id: visual-evidence
+    attributes:
+      label: "Screenshots or Video"
+      description: "Drag and drop images or videos directly into this box to help me understand the issue better."
+      placeholder: "Paste or drag screenshots here..."
+    validations:
+      required: false
+  - type: textarea
+    id: ha-logs
+    attributes:
+      label: "Relevant Logs"
+      description: "Please paste relevant logs from Home Assistant or other sources if available."
+      render: shell
+      placeholder: "Paste logs here..."
+  - type: checkboxes
+    id: sanity-check
+    attributes:
+      label: "Final Checks"
+      options:
+        - label: "I have checked the entire troubleshooting section on the website, and tried all relevant steps."
+          required: true
+        - label: "I have searched in the Q&A discussions if someone asked this question"
+          required: true
+        - label: "I have restarted both my Android TV and Home Assistant instance."
+          required: true
+
+        
