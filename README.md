@@ -93,6 +93,9 @@ Have a question, a feature idea, or need help? Please use our Discussions page!
    - General: For everything else.
 4. Join In: Upvote ideas you like to help us prioritize what to build next!
 
+> [!IMPORTANT]
+> **Rules of Engagement:** To keep this project manageable alongside my full-time work and studies, all communications **must be in English**. Please ensure you fill out the provided templates completely. Non-compliant or non-English issues/discussions will be closed immediately.
+
 ## :warning: License
 
 Distributed under the GNU General Public License v3.0 (GPLv3). See `LICENSE` for more information.
