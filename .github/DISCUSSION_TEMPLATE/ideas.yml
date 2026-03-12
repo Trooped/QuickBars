@@ -4,8 +4,17 @@ body:
   - type: markdown
     attributes:
       value: |
+      
+        ### ⚠️ Rules of Engagement
+        **Please read before submitting:**
+        - **Language:** All discussions must be in **English**.
+        - **Completeness:** You must fill out **all sections** of this template.
+        - **Respect:** This project is maintained by a student/developer in their spare time; help me help you by being clear.
+        - **Automatic Closure:** discussions that are not in English or are incomplete will be closed immediately.
+
+        ---
         ### Welcome! 🚀
-        Thanks for helping make **QuickBars** better. I prioritize features that are functional, and will benefit most users"
+        Thanks for helping make **QuickBars** better. I prioritize features that are functional, and will benefit most users
   - type: input
     id: feature-title
     attributes:
