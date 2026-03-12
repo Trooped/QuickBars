@@ -4,6 +4,15 @@ First off, thank you for considering contributing to QuickBars!
 
 Please take a moment to review these guidelines to make the contribution process effective for everyone.
 
+## ⚠️ Rules of Engagement
+**To keep this project manageable for a solo developer/student, please adhere to these strict rules:**
+* **Language:** All issues, pull requests, and discussions must be in **English**.
+* **Completeness:** You must fill out **all sections** of the provided templates.
+* **Automatic Closure:** Issues or discussions that are not in English or are incomplete will be closed immediately.
+* **Respect the Maintainer:** This project is managed by Omri in his spare time. Help me help you by being clear and professional.
+
+---
+
 ## :octocat: The Contribution Workflow
 To ensure that changes align with the project's goals and architecture, please follow our refined workflow:
 
