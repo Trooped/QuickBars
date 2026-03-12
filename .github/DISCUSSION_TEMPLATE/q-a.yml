@@ -4,6 +4,15 @@ body:
   - type: markdown
     attributes:
       value: |
+            
+        ### ⚠️ Rules of Engagement
+        **Please read before submitting:**
+        - **Language:** All discussions must be in **English**.
+        - **Completeness:** You must fill out **all sections** of this template.
+        - **Respect:** This project is maintained by a student/developer in their spare time; help me help you by being clear.
+        - **Automatic Closure:** discussions that are not in English or are incomplete will be closed immediately.
+        
+        ---
         ### Troubleshooting Guide 🔍
         Before posting, please ensure you are on the latest version of the app and Home Assistant, and that you went through the [troubleshooting section](https://quickbars.app/troubleshooting) on the QuickBars website, and through the [Q&A discussions](https://github.com/Trooped/QuickBars/discussions/categories/q-a) to see if someone asked your question.
   - type: input
