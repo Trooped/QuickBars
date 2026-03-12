@@ -6,10 +6,20 @@ labels: bug
 assignees: ''
 ---
 
+### ⚠️ Rules of Engagement
+**Please read before submitting:**
+* **Language:** All issues must be submitted in **English**.
+* **Completeness:** You must fill out **all sections** of this template.
+* **Respect:** This project is maintained by a student/developer in their spare time; help me help you by being clear.
+* **Automatic Closure:** Issues that are not in English or are incomplete will be closed immediately.
+---
+
 **Describe the bug**
+
 A clear and concise description of what the bug is.
 
 **To Reproduce**
+
 Steps to reproduce the behavior:
 1. Go to '...'
 2. Click on '....'
@@ -17,12 +27,15 @@ Steps to reproduce the behavior:
 4. See error
 
 **Expected behavior**
+
 A clear and concise description of what you expected to happen.
 
 **Screenshots/Video**
+
 If applicable, add screenshots or a video to help explain your problem (very helpful for UI/Overlay issues!).
 
 **Environment (please complete the following information):**
+
 - Android TV Device: [e.g. Nvidia Shield, Chromecast with Google TV]
 - Android Version: [e.g. Android 12]
 - QuickBars Version: [e.g. 1.3.2]
