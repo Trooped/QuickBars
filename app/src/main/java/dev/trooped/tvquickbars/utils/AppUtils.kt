@@ -100,7 +100,36 @@ fun Context.getBestLaunchIntent(packageName: String): Intent? {
         }
     }
 
-    // 4. Special case: Amazon Prime Video
+    // 4. Aggressive fallback: scan all declared activities for a likely entry point
+    try {
+        val packageInfo = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            pm.getPackageInfo(packageName, PackageManager.PackageInfoFlags.of(PackageManager.GET_ACTIVITIES.toLong()))
+        } else {
+            @Suppress("DEPRECATION")
+            pm.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES)
+        }
+
+        val activities = packageInfo.activities
+        if (activities != null && activities.isNotEmpty()) {
+            val entryPointKeywords = listOf("main", "splash", "tv", "leanback", "launcher", "home")
+
+            val exported = activities.filter { it.exported }
+            val candidates = exported.ifEmpty { activities.toList() }
+
+            val bestMatch = candidates.firstOrNull { activity ->
+                val name = activity.name.lowercase()
+                entryPointKeywords.any { keyword -> name.contains(keyword) }
+            } ?: candidates[0]
+
+            return Intent(Intent.ACTION_MAIN).apply {
+                component = ComponentName(packageName, bestMatch.name)
+            }
+        }
+    } catch (_: PackageManager.NameNotFoundException) {
+        // Package not installed, fall through
+    }
+
+    // 5. Special case: Amazon Prime Video
     if (packageName == "com.amazon.amazonvideo.livingroom") {
         val knownActivities = listOf(
             "com.amazon.ignition.IgnitionActivity",
