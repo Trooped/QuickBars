@@ -95,8 +95,7 @@
     <string name="settings_section_connection">Connection</string>
     <string name="settings_label_url">Home Assistant URL</string>
     <string name="settings_value_not_set">Not set</string>
-    <string name="settings_button_update_url">Update URL</string>
-    <string name="settings_button_update_token">Update Access Token</string>
+    <string name="settings_button_update_connection">Update Connection</string>
     <string name="settings_button_test_connection">Test Connection</string>
     <string name="settings_section_permissions">Permissions</string>
     <string name="settings_label_overlay_permission">Display over other apps</string>
