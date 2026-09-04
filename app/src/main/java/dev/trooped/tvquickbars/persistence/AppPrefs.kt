@@ -111,7 +111,6 @@ object AppPrefs {
 
     fun isShowToastOnUnassignedGestureEnabled(ctx: Context): Boolean =
         ctx.getSharedPreferences(FILE, MODE_PRIVATE)
-            // default = true if not yet written: preserves existing behavior
             .getBoolean(KEY_SHOW_TOAST_ON_UNASSIGNED_GESTURE, true)
 
     fun setShowToastOnUnassignedGestureEnabled(ctx: Context, enabled: Boolean) {
