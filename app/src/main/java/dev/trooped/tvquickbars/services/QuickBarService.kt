@@ -39,6 +39,7 @@ import dev.trooped.tvquickbars.data.QuickBarPosition
 import dev.trooped.tvquickbars.ha.ConnectionState
 import dev.trooped.tvquickbars.ha.HomeAssistantClient
 import dev.trooped.tvquickbars.ha.HomeAssistantListener
+import dev.trooped.tvquickbars.persistence.AppPrefs
 import dev.trooped.tvquickbars.persistence.QuickBarManager
 import dev.trooped.tvquickbars.persistence.SavedEntitiesManager
 import dev.trooped.tvquickbars.persistence.SecurePrefsManager
@@ -741,7 +742,7 @@ class QuickBarService : AccessibilityService(), HomeAssistantListener {
 
         // Long attempted with no long action → toast + swallow
         if (!hasLong && pressedMs >= longPressTimeout) {
-            showToast("No long-press action assigned")
+            hintUnassigned("long-press")
             return true
         }
 
@@ -773,7 +774,7 @@ class QuickBarService : AccessibilityService(), HomeAssistantListener {
                             if (singleActionType == "quickbar") markQuickBarOwner(keyCode)
                             runAction(singleActionId!!, singleActionType)
                         } else {
-                            showToast("No single-press action assigned")
+                            hintUnassigned("single-press")
                         }
                     }
                 }
@@ -788,7 +789,7 @@ class QuickBarService : AccessibilityService(), HomeAssistantListener {
             if (doublePressPendingKeyCode == keyCode) {
                 doublePressRunnables.remove(keyCode)?.let { handler.removeCallbacks(it) }
                 doublePressPendingKeyCode = -1
-                showToast("No double-press action assigned")
+                hintUnassigned("double-press")
                 return true
             }
             doublePressPendingKeyCode = keyCode
@@ -954,6 +955,17 @@ class QuickBarService : AccessibilityService(), HomeAssistantListener {
      */
     private fun cancelFailsafeHold(keyCode: Int) {
         failsafeHoldRunnables.remove(keyCode)?.let { handler.removeCallbacks(it) }
+    }
+
+    /**
+     * Feedback for a recognized gesture that has no action assigned.
+     * Silent unless the user opts in via Settings, since keys like HOME fire this
+     * on every normal press when only double/long are mapped.
+     */
+    private fun hintUnassigned(gesture: String) {
+        if (AppPrefs.isShowToastOnUnassignedGestureEnabled(this)) {
+            showToast("No $gesture action assigned")
+        }
     }
 
     private fun resetKeyGestureState(keyCode: Int) {

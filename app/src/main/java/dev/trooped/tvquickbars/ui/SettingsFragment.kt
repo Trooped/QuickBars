@@ -282,6 +282,19 @@ class SettingsFragment : Fragment(), HomeAssistantListener {
             applyToastOnTriggerChange(checked)
         }
 
+        // Toast on unassigned gesture setting (Advanced Settings card)
+        val unassignedRow: View = view.findViewById(R.id.toast_on_unassigned_container)
+        val unassignedSwitch: MaterialSwitch = view.findViewById(R.id.switch_show_toast_on_unassigned)
+
+        unassignedSwitch.isChecked = AppPrefs.isShowToastOnUnassignedGestureEnabled(requireContext())
+
+        unassignedRow.setOnClickListener {
+            unassignedSwitch.toggle()
+        }
+        unassignedSwitch.setOnCheckedChangeListener { _, checked ->
+            AppPrefs.setShowToastOnUnassignedGestureEnabled(requireContext(), checked)
+        }
+
         // 1. Find the TextView from your layout
         val aboutVersionTextView: TextView = view.findViewById(R.id.about_version_textview)
 

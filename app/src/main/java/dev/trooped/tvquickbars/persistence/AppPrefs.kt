@@ -19,6 +19,7 @@ object AppPrefs {
     private const val KEY_FIRST_TIME_SETUP = "pref_first_time_setup_in_progress"
     private const val KEY_LAST_SEEN_VERSION = "pref_last_seen_version"
     private const val KEY_SHOW_TOAST_ON_ENTITY_TRIGGER = "pref_show_toast_on_entity_trigger"
+    private const val KEY_SHOW_TOAST_ON_UNASSIGNED_GESTURE = "pref_show_toast_on_unassigned_gesture"
 
     fun isPersistentConnectionEnabled(ctx: Context): Boolean =
         ctx.getSharedPreferences(FILE, MODE_PRIVATE)
@@ -105,6 +106,16 @@ object AppPrefs {
     fun setShowToastOnEntityTriggerEnabled(ctx: Context, enabled: Boolean) {
         ctx.getSharedPreferences(FILE, MODE_PRIVATE).edit {
             putBoolean(KEY_SHOW_TOAST_ON_ENTITY_TRIGGER, enabled)
+        }
+    }
+
+    fun isShowToastOnUnassignedGestureEnabled(ctx: Context): Boolean =
+        ctx.getSharedPreferences(FILE, MODE_PRIVATE)
+            .getBoolean(KEY_SHOW_TOAST_ON_UNASSIGNED_GESTURE, true)
+
+    fun setShowToastOnUnassignedGestureEnabled(ctx: Context, enabled: Boolean) {
+        ctx.getSharedPreferences(FILE, MODE_PRIVATE).edit {
+            putBoolean(KEY_SHOW_TOAST_ON_UNASSIGNED_GESTURE, enabled)
         }
     }
 
