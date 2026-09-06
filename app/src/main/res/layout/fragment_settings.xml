@@ -103,23 +103,13 @@
                     </LinearLayout>
 
                     <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btn_update_url"
-                        style="@style/Widget.HAQuickBars.Button.Primary"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:minHeight="42dp"
-                        android:text="@string/settings_button_update_url"
-                        android:layout_marginBottom="6dp"
-                        android:focusable="true"/>
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btn_update_token"
+                        android:id="@+id/btn_update_connection"
                         style="@style/Widget.HAQuickBars.Button.Primary"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:minHeight="42dp"
                         android:layout_marginBottom="6dp"
-                        android:text="@string/settings_button_update_token"
+                        android:text="@string/settings_button_update_connection"
                         android:focusable="true" />
 
                     <com.google.android.material.button.MaterialButton

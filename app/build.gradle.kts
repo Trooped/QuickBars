@@ -77,6 +77,7 @@ dependencies {
     implementation(composeBom)
     testImplementation(composeBom)
     androidTestImplementation(composeBom)
+    testImplementation("junit:junit:4.13.2")
 
     val lifecycle_version = "2.9.1"
 

@@ -39,6 +39,7 @@ import com.revenuecat.purchases.models.StoreTransaction
 import dev.trooped.tvquickbars.data.CategoryItem
 import dev.trooped.tvquickbars.ha.ConnectionState
 import dev.trooped.tvquickbars.ha.HomeAssistantClient
+import dev.trooped.tvquickbars.ha.HomeAssistantCredentialUpdater
 import dev.trooped.tvquickbars.ha.HomeAssistantListener
 import dev.trooped.tvquickbars.ha.ValidationResult
 import dev.trooped.tvquickbars.persistence.AppPrefs
@@ -116,8 +117,7 @@ class SettingsFragment : Fragment(), HomeAssistantListener {
         val appIdRaw = AppIdProvider.get(requireContext())
         appIdTextView.text = appIdRaw
 
-        val updateUrlButton: Button = view.findViewById(R.id.btn_update_url)
-        val updateTokenButton: Button = view.findViewById(R.id.btn_update_token)
+        val updateConnectionButton: Button = view.findViewById(R.id.btn_update_connection)
         val testConnectionButton: Button = view.findViewById(R.id.btn_test_connection)
 
         val overlayContainer: View = view.findViewById(R.id.overlay_permission_container)
@@ -129,8 +129,7 @@ class SettingsFragment : Fragment(), HomeAssistantListener {
         cookieButton = view.findViewById(R.id.btn_coffee_cookie)
         cakeButton = view.findViewById(R.id.btn_coffee_cake)
 
-        updateUrlButton.setOnClickListener { showUpdateDialog("url") }
-        updateTokenButton.setOnClickListener { showTokenUpdateOptions() }
+        updateConnectionButton.setOnClickListener { showConnectionUpdateOptions() }
         testConnectionButton.setOnClickListener { testConnection() }
 
         // Set up button click listeners
@@ -404,19 +403,18 @@ class SettingsFragment : Fragment(), HomeAssistantListener {
     }
 
     /**
-     * Show options for updating the token.
-     * This includes manual entry and QR code transfer.
+     * Show options for updating the Home Assistant URL and token together.
      */
     @RequiresApi(Build.VERSION_CODES.P)
-    private fun showTokenUpdateOptions() {
-        val options = arrayOf("Enter Manually", "Paste from phone using QR code")
+    private fun showConnectionUpdateOptions() {
+        val options = arrayOf("Enter manually", "Use phone with QR code")
 
         MaterialAlertDialogBuilder(requireContext())
-            .setTitle("Update Access Token")
+            .setTitle("Update Home Assistant Connection")
             .setItems(options) { _, which ->
                 when (which) {
-                    0 -> showUpdateDialog("token") // Existing manual entry
-                    1 -> startTokenTransfer() // New QR code option
+                    0 -> showCredentialsUpdateDialog()
+                    1 -> startTokenTransfer()
                 }
             }
             .show()
@@ -451,7 +449,7 @@ class SettingsFragment : Fragment(), HomeAssistantListener {
 
         // Show the dialog
         val qrDialog = MaterialAlertDialogBuilder(requireContext())
-            .setTitle("Update Access Token")
+            .setTitle("Update Home Assistant Connection")
             .setView(dialogView)
             .setNegativeButton("Cancel") { dialog, _ ->
                 tokenHelper?.stopServer()
@@ -459,18 +457,21 @@ class SettingsFragment : Fragment(), HomeAssistantListener {
             }
             .show()
 
-        // Start the token server with token-only mode ENABLED
-        tokenHelper?.startTokenTransfer(tokenOnlyMode = true) { haUrl, token ->
+        tokenHelper?.startTokenTransfer(tokenOnlyMode = false) { haUrl, token ->
             requireActivity().runOnUiThread {
                 // Dismiss the QR code dialog
                 qrDialog.dismiss()
 
-                if (token.isEmpty()) {
-                    Toast.makeText(requireContext(), "No token received", Toast.LENGTH_SHORT).show()
+                if (haUrl.isBlank() || token.isBlank()) {
+                    Toast.makeText(
+                        requireContext(),
+                        "Both URL and token are required",
+                        Toast.LENGTH_SHORT
+                    ).show()
                     return@runOnUiThread
                 }
 
-                validateAndSaveToken(token, "qr")
+                validateAndSaveCredentials(haUrl, token)
             }
         }
     }
@@ -578,115 +579,72 @@ class SettingsFragment : Fragment(), HomeAssistantListener {
     }
 
     /**
-     * Show a dialog for updating the token.
+     * Show a dialog that collects a candidate Home Assistant URL and token together.
      */
-    private fun showUpdateDialog(type: String) {
-        val title = if (type == "url") "Update Home Assistant URL" else "Update Access Token"
-        val hint  = if (type == "url") "URL or IP Address" else "Long-lived access token"
-
-        // Use the library style, not app R.style.*
-        val til = TextInputLayout(
-            ContextThemeWrapper(
-                requireContext(),
-                com.google.android.material.R.style.Widget_Material3_TextInputLayout_OutlinedBox
-            )
-        ).apply {
+    private fun showCredentialsUpdateDialog() {
+        val inputStyle =
+            com.google.android.material.R.style.Widget_Material3_TextInputLayout_OutlinedBox
+        val primary = androidx.core.content.ContextCompat.getColor(
+            requireContext(),
+            R.color.md_theme_primary
+        )
+        val urlLayout = TextInputLayout(ContextThemeWrapper(requireContext(), inputStyle)).apply {
             boxBackgroundMode = TextInputLayout.BOX_BACKGROUND_OUTLINE
-            isHintEnabled = true
-            this.hint = hint
-
-            val primary = androidx.core.content.ContextCompat.getColor(context, R.color.md_theme_primary)
+            hint = "URL or IP Address"
             boxStrokeColor = primary
-            setHintTextColor(android.content.res.ColorStateList.valueOf(primary))
+            setHintTextColor(ColorStateList.valueOf(primary))
         }
-
-        val edit = TextInputEditText(til.context).apply {
-            if (type == "url") {
-                setText(SecurePrefsManager.getHAUrl(requireContext()) ?: "")
-                inputType = android.text.InputType.TYPE_TEXT_VARIATION_URI
-            } else {
-                inputType = android.text.InputType.TYPE_CLASS_TEXT
-            }
-            val h = (16 * resources.displayMetrics.density).toInt()
-            val v = (12 * resources.displayMetrics.density).toInt()
-            setPadding(h, v, h, v)
+        val tokenLayout = TextInputLayout(ContextThemeWrapper(requireContext(), inputStyle)).apply {
+            boxBackgroundMode = TextInputLayout.BOX_BACKGROUND_OUTLINE
+            hint = "Long-lived access token"
+            boxStrokeColor = primary
+            setHintTextColor(ColorStateList.valueOf(primary))
         }
-        til.addView(edit)
+        val horizontalPadding = (16 * resources.displayMetrics.density).toInt()
+        val verticalPadding = (12 * resources.displayMetrics.density).toInt()
+        val urlInput = TextInputEditText(urlLayout.context).apply {
+            setText(SecurePrefsManager.getHAUrl(requireContext()) ?: "")
+            inputType = android.text.InputType.TYPE_TEXT_VARIATION_URI
+            setPadding(horizontalPadding, verticalPadding, horizontalPadding, verticalPadding)
+        }
+        val tokenInput = TextInputEditText(tokenLayout.context).apply {
+            inputType = android.text.InputType.TYPE_CLASS_TEXT
+            setPadding(horizontalPadding, verticalPadding, horizontalPadding, verticalPadding)
+        }
+        urlLayout.addView(urlInput)
+        tokenLayout.addView(tokenInput)
 
         val container = LinearLayout(requireContext()).apply {
             orientation = LinearLayout.VERTICAL
-            val lp = LinearLayout.LayoutParams(
+            val fieldParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
             )
-            addView(til, lp)
-            val pad = (24 * resources.displayMetrics.density).toInt()
-            setPadding(pad, pad, pad, 0)
+            val spacing = (12 * resources.displayMetrics.density).toInt()
+            addView(urlLayout, fieldParams)
+            addView(
+                tokenLayout,
+                LinearLayout.LayoutParams(fieldParams).apply { topMargin = spacing }
+            )
+            val padding = (24 * resources.displayMetrics.density).toInt()
+            setPadding(padding, padding, padding, 0)
         }
 
         MaterialAlertDialogBuilder(requireContext())
-            .setTitle(title)
+            .setTitle("Update Home Assistant Connection")
             .setView(container)
             .setPositiveButton("Save") { _, _ ->
-                val userInput = edit.text.toString().trim()
-                if (userInput.isEmpty()) {
-                    Snackbar.make(requireView(), "Please enter a value", Snackbar.LENGTH_SHORT).show()
+                val url = urlInput.text.toString().trim()
+                val token = tokenInput.text.toString().trim()
+                if (url.isEmpty() || token.isEmpty()) {
+                    Snackbar.make(
+                        requireView(),
+                        "Please enter both URL and token",
+                        Snackbar.LENGTH_SHORT
+                    ).show()
                     return@setPositiveButton
                 }
-
-                val loading = MaterialAlertDialogBuilder(requireContext())
-                    .setTitle("Validating")
-                    .setMessage("Testing connection...")
-                    .setCancelable(false)
-                    .show()
-
-                viewLifecycleOwner.lifecycleScope.launch {
-                    if (type == "url") {
-                        val token = SecurePrefsManager.getHAToken(requireContext())
-                        if (token == null) {
-                            loading.dismiss()
-                            Snackbar.make(requireView(), "Token not set", Snackbar.LENGTH_SHORT).show()
-                            return@launch
-                        }
-
-                        // Let validateWithFallback try http/https if missing
-                        val urlToValidate = userInput
-                        when (val result = HomeAssistantClient.validateWithFallback(urlToValidate, token)) {
-                            is ValidationResult.Success -> {
-                                loading.dismiss()
-                                SecurePrefsManager.saveHAUrl(requireContext(), userInput)
-                                Snackbar.make(requireView(), "Home Assistant URL updated", Snackbar.LENGTH_SHORT).show()
-                                updateUi()
-                            }
-                            is ValidationResult.Error -> {
-                                loading.dismiss()
-                                val (t, m) = getErrorInfo(result.reason)
-                                showError(t, m)
-                            }
-                        }
-                    } else {
-                        val url = SecurePrefsManager.getHAUrl(requireContext())
-                        if (url == null) {
-                            loading.dismiss()
-                            Snackbar.make(requireView(), "URL not set", Snackbar.LENGTH_SHORT).show()
-                            return@launch
-                        }
-
-                        when (val result = HomeAssistantClient.validateCredentials(url, userInput)) {
-                            is ValidationResult.Success -> {
-                                loading.dismiss()
-                                SecurePrefsManager.saveHAToken(requireContext(), userInput)
-                                Snackbar.make(requireView(), "Token validated and saved!", Snackbar.LENGTH_SHORT).show()
-                                updateUi()
-                            }
-                            is ValidationResult.Error -> {
-                                loading.dismiss()
-                                val (t, m) = getErrorInfo(result.reason)
-                                showError(t, m)
-                            }
-                        }
-                    }
-                }
+                validateAndSaveCredentials(url, token)
             }
             .setNegativeButton("Cancel", null)
             .show()
@@ -720,47 +678,36 @@ class SettingsFragment : Fragment(), HomeAssistantListener {
     }
 
     /**
-     * Validates the token (by checking connection with HA) and saves it.
-     * This is now refactored to use the central validation logic.
+     * Validate a candidate URL/token pair and persist both only after success.
      */
-    private fun validateAndSaveToken(token: String, source: String) {
+    private fun validateAndSaveCredentials(url: String, token: String) {
         val loadingDialog = MaterialAlertDialogBuilder(requireContext())
             .setTitle("Validating")
-            .setMessage("Testing connection with this token...")
+            .setMessage("Testing the new Home Assistant connection...")
             .setCancelable(false)
             .show()
 
-        val url = SecurePrefsManager.getHAUrl(requireContext())
-        if (url == null) {
-            loadingDialog.dismiss()
-            Snackbar.make(requireView(), "Please set a Home Assistant URL first", Snackbar.LENGTH_LONG).show()
-            return
-        }
-
-        // ✅ Launch a coroutine to use the central validation function
         viewLifecycleOwner.lifecycleScope.launch {
-            val result = HomeAssistantClient.validateCredentials(url, token)
+            val updater = HomeAssistantCredentialUpdater(
+                validate = HomeAssistantClient::validateWithFallback,
+                persist = { candidateUrl, candidateToken ->
+                    SecurePrefsManager.saveHAUrl(requireContext(), candidateUrl)
+                    SecurePrefsManager.saveHAToken(requireContext(), candidateToken)
+                }
+            )
+            val result = updater.update(url, token)
             loadingDialog.dismiss()
 
             when (result) {
                 is ValidationResult.Success -> {
-                    // Token works! Save it.
-                    SecurePrefsManager.saveHAToken(requireContext(), token)
-
-                    // Show different success message based on the source (manual vs. QR)
-                    if (source == "qr") {
-                        MaterialAlertDialogBuilder(requireContext())
-                            .setTitle("Token Updated")
-                            .setMessage("Your Home Assistant access token has been successfully validated and saved.")
-                            .setPositiveButton("OK") { _, _ -> updateUi() }
-                            .show()
-                    } else {
-                        Snackbar.make(requireView(), "Token validated and saved!", Snackbar.LENGTH_SHORT).show()
-                        updateUi()
-                    }
+                    Snackbar.make(
+                        requireView(),
+                        "Home Assistant connection updated",
+                        Snackbar.LENGTH_SHORT
+                    ).show()
+                    updateUi()
                 }
                 is ValidationResult.Error -> {
-                    // Show a specific error message if validation fails
                     val errorInfo = getErrorInfo(result.reason)
                     showError(errorInfo.first, errorInfo.second)
                 }
